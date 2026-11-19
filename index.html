@@ -8,144 +8,45 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;overflow:hidden;background:#17191c;
- font-family:Arial,sans-serif;color:white;
-}
-#game{
- position:fixed;inset:0;width:100%;height:100%;
-}
+body{margin:0;overflow:hidden;background:#17191c;font-family:Arial,sans-serif;color:white}
+#game{position:fixed;inset:0;width:100%;height:100%}
 canvas{display:block}
-#ui{
- position:fixed;inset:0;pointer-events:none;
- display:flex;flex-direction:column;
- justify-content:space-between;
-}
+#ui{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}
 button{cursor:pointer;color:white}
-.top{
- height:65px;background:linear-gradient(90deg,#10151be8,#10151b55);
- display:flex;align-items:center;justify-content:space-between;
- padding:0 16px;pointer-events:auto;
- border-bottom:1px solid #ffffff25;
-}
+.top{height:65px;background:linear-gradient(90deg,#10151be8,#10151b55);display:flex;align-items:center;justify-content:space-between;padding:0 16px;pointer-events:auto;border-bottom:1px solid #ffffff25}
 .logo{font-size:22px;font-weight:1000;letter-spacing:2px}
 .logo span{color:#ffb33b}
 .profile{display:flex;align-items:center;gap:9px}
-.avatar{
- width:38px;height:38px;border-radius:50%;
- background:linear-gradient(135deg,#e69b56,#653e2c);
- border:2px solid #ffc45b;
- display:grid;place-items:center;font-size:20px;
-}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#e69b56,#653e2c);border:2px solid #ffc45b;display:grid;place-items:center;font-size:20px}
 .money{font-weight:bold;font-size:13px}
 .money span{color:#ffce48;margin-left:5px}
 .topright{display:flex;gap:12px;align-items:center}
-.topright button{
- background:#ffffff15;border:1px solid #ffffff30;
- border-radius:7px;padding:9px;font-size:17px;
-}
-.main{
- flex:1;display:flex;align-items:center;
- justify-content:space-between;
- padding:12px 15px;
-}
-.sidebar{
- width:145px;display:flex;flex-direction:column;
- gap:7px;pointer-events:auto;
-}
-.menu{
- padding:12px 10px;text-align:left;
- background:linear-gradient(90deg,#10151bea,#10151b99);
- border:1px solid #ffffff20;
- border-left:3px solid transparent;
- font-weight:900;font-size:12px;letter-spacing:.5px;
-}
-.menu.active,.menu:active{
- border-left-color:#ffb43c;
- background:linear-gradient(90deg,#a65e20dd,#20242bdb);
-}
-.center{
- flex:1;display:flex;align-items:center;
- justify-content:center;position:relative;
- height:100%;
-}
-.character-label{
- position:absolute;bottom:10px;text-align:center;
- font-weight:900;letter-spacing:2px;
- text-shadow:0 2px 6px black;
-}
-.character-label small{
- display:block;color:#ffc15b;font-size:10px;margin-top:5px;
-}
-.switch{
- position:absolute;bottom:50%;display:flex;
- width:100%;justify-content:space-between;
- padding:0 12px;pointer-events:none;
-}
-.switch button{
- pointer-events:auto;width:38px;height:38px;
- border:1px solid #ffffff66;background:#10151b99;
- border-radius:50%;font-size:20px;
-}
-.rightmenu{
- width:150px;display:flex;flex-direction:column;
- align-items:flex-end;gap:9px;pointer-events:auto;
-}
-.mode{
- background:#171b20dd;border:1px solid #ffffff50;
- padding:11px;width:100%;text-align:center;
- font-weight:900;font-size:14px;
-}
+.topright button{background:#ffffff15;border:1px solid #ffffff30;border-radius:7px;padding:9px;font-size:17px}
+.main{flex:1;display:flex;align-items:center;justify-content:space-between;padding:12px 15px}
+.sidebar{width:145px;display:flex;flex-direction:column;gap:7px;pointer-events:auto}
+.menu{padding:12px 10px;text-align:left;background:linear-gradient(90deg,#10151bea,#10151b99);border:1px solid #ffffff20;border-left:3px solid transparent;font-weight:900;font-size:12px;letter-spacing:.5px}
+.menu.active,.menu:active{border-left-color:#ffb43c;background:linear-gradient(90deg,#a65e20dd,#20242bdb)}
+.center{flex:1;display:flex;align-items:center;justify-content:center;position:relative;height:100%}
+.character-label{position:absolute;bottom:10px;text-align:center;font-weight:900;letter-spacing:2px;text-shadow:0 2px 6px black}
+.character-label small{display:block;color:#ffc15b;font-size:10px;margin-top:5px}
+.switch{position:absolute;bottom:50%;display:flex;width:100%;justify-content:space-between;padding:0 12px;pointer-events:none}
+.switch button{pointer-events:auto;width:38px;height:38px;border:1px solid #ffffff66;background:#10151b99;border-radius:50%;font-size:20px}
+.rightmenu{width:150px;display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:auto}
+.mode{background:#171b20dd;border:1px solid #ffffff50;padding:11px;width:100%;text-align:center;font-weight:900;font-size:14px}
 .mode small{display:block;color:#ffbd50;margin-top:5px}
-.invite{
- background:#252b31dd;border:1px solid #ffffff30;
- padding:9px;width:100%;font-weight:bold;
-}
-.bottom{
- display:flex;justify-content:space-between;
- align-items:flex-end;padding:10px 17px 13px;
- pointer-events:auto;
- background:linear-gradient(0deg,#10151bee,transparent);
-}
+.invite{background:#252b31dd;border:1px solid #ffffff30;padding:9px;width:100%;font-weight:bold}
+.bottom{display:flex;justify-content:space-between;align-items:flex-end;padding:10px 17px 13px;pointer-events:auto;background:linear-gradient(0deg,#10151bee,transparent)}
 .chat{font-size:11px;color:#ddd}
-.start{
- background:linear-gradient(120deg,#ffda69,#f39a23);
- color:#34200a;border:0;
- font-size:27px;font-weight:1000;
- padding:15px 48px;
- clip-path:polygon(8% 0,100% 0,100% 100%,0 100%);
- box-shadow:0 0 20px #ffad39;
-}
+.start{background:linear-gradient(120deg,#ffda69,#f39a23);color:#34200a;border:0;font-size:27px;font-weight:1000;padding:15px 48px;clip-path:polygon(8% 0,100% 0,100% 100%,0 100%);box-shadow:0 0 20px #ffad39}
 .start:active{transform:scale(.96)}
-#notice{
- position:fixed;left:50%;top:50%;
- transform:translate(-50%,-50%);
- background:#151a20f5;border:1px solid #ffbd50;
- padding:25px;width:min(310px,85vw);
- text-align:center;display:none;z-index:5;
- border-radius:10px;pointer-events:auto;
-}
-#notice button{
- padding:11px 25px;background:#efa72e;
- color:#251600;border:0;font-weight:bold;
- margin-top:15px;border-radius:5px;
-}
-#toast{
- position:fixed;top:75px;left:50%;
- transform:translateX(-50%);
- background:#151a20e8;padding:10px 20px;
- border:1px solid #ffbd50;border-radius:5px;
- display:none;font-size:12px;z-index:4;
-}
-@media(orientation:portrait){
- .rotate{
- position:fixed;inset:0;background:#111;
- z-index:20;display:flex!important;
- align-items:center;justify-content:center;
- text-align:center;padding:30px;
- }
-}
+#notice{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#151a20f5;border:1px solid #ffbd50;padding:25px;width:min(310px,85vw);text-align:center;display:none;z-index:5;border-radius:10px;pointer-events:auto}
+#notice button{padding:11px 25px;background:#efa72e;color:#251600;border:0;font-weight:bold;margin-top:15px;border-radius:5px}
+#toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);background:#151a20e8;padding:10px 20px;border:1px solid #ffbd50;border-radius:5px;display:none;font-size:12px;z-index:4;max-width:90%;text-align:center}
+#loading{position:fixed;left:50%;top:48%;transform:translate(-50%,-50%);z-index:3;background:#111d;padding:12px 20px;border:1px solid #ffbd50;border-radius:6px;font-size:12px;text-align:center;pointer-events:none}
 .rotate{display:none}
+@media(orientation:portrait){
+ .rotate{position:fixed;inset:0;background:#111;z-index:20;display:flex!important;align-items:center;justify-content:center;text-align:center;padding:30px}
+}
 @media(max-height:420px){
  .top{height:43px;padding:0 9px}
  .logo{font-size:16px}
@@ -161,6 +62,7 @@ button{cursor:pointer;color:white}
 
 <body>
 <div id="game"></div>
+<div id="loading">MEMUAT KARAKTER 3D... 0%</div>
 
 <div class="rotate">
  <div>
@@ -174,14 +76,9 @@ button{cursor:pointer;color:white}
  <header class="top">
   <div class="profile">
    <div class="avatar">👤</div>
-   <div>
-    <b>PLAYER</b>
-    <div style="font-size:10px;color:#ffc45b">LEVEL 1</div>
-   </div>
+   <div><b>PLAYER</b><div style="font-size:10px;color:#ffc45b">LEVEL 1</div></div>
   </div>
-
   <div class="logo">LAST <span>SURVIVOR</span></div>
-
   <div class="topright">
    <div class="money">🪙 <span>4817</span></div>
    <div class="money">💎 <span>0</span></div>
@@ -213,10 +110,7 @@ button{cursor:pointer;color:white}
   </section>
 
   <aside class="rightmenu">
-   <button class="mode" onclick="showToast('CLASSIC MODE DIPILIH')">
-    CLASSIC
-    <small>ISLAND MAP ▼</small>
-   </button>
+   <button class="mode" onclick="showToast('CLASSIC MODE DIPILIH')">CLASSIC<small>ISLAND MAP ▼</small></button>
    <button class="invite" onclick="showToast('Fitur undangan akan datang')">♧ INVITE</button>
    <div style="font-size:24px;margin-top:20px">🏆</div>
    <div style="font-size:24px">📅</div>
@@ -235,45 +129,41 @@ button{cursor:pointer;color:white}
  <p id="noticeText">Coming Soon</p>
  <button onclick="closeNotice()">OK</button>
 </div>
-
 <div id="toast"></div>
 
 <script type="importmap">
 {
  "imports":{
-  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
  }
 }
 </script>
 
 <script type="module">
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x9c6554);
 scene.fog=new THREE.FogExp2(0x9c6554,0.012);
 
-const camera=new THREE.PerspectiveCamera(
- 42,window.innerWidth/window.innerHeight,0.1,300
-);
-camera.position.set(0,2.8,10);
-camera.lookAt(0,1.4,0);
+const camera=new THREE.PerspectiveCamera(42,window.innerWidth/window.innerHeight,0.1,300);
+camera.position.set(0,2.5,7.8);
+camera.lookAt(0,1.05,0);
 
-const renderer=new THREE.WebGLRenderer({
- antialias:true,alpha:false
-});
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
 renderer.setSize(window.innerWidth,window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.7));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.35));
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.25;
+renderer.toneMappingExposure=1.2;
 document.getElementById('game').appendChild(renderer.domElement);
 
 // LIGHTING
 scene.add(new THREE.HemisphereLight(0xb9d6ff,0x463326,2));
-
 const sunLight=new THREE.DirectionalLight(0xffc08a,3);
 sunLight.position.set(-5,10,6);
 sunLight.castShadow=true;
@@ -282,22 +172,16 @@ scene.add(sunLight);
 
 // MATERIALS
 function mat(color,roughness=0.8){
- return new THREE.MeshStandardMaterial({
-  color,roughness
- });
+ return new THREE.MeshStandardMaterial({color,roughness});
 }
-
 const concrete=mat(0x555653);
 const dark=mat(0x242b30);
 const metal=mat(0x697276,0.4);
 const orange=mat(0xd17b36);
 const sand=mat(0x777064);
 
-// OBJECT HELPER
 function box(x,y,z,sx,sy,sz,material){
- const m=new THREE.Mesh(
-  new THREE.BoxGeometry(sx,sy,sz),material
- );
+ const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),material);
  m.position.set(x,y,z);
  m.castShadow=true;
  m.receiveShadow=true;
@@ -347,18 +231,13 @@ crate(10,2);
 
 // LIGHT POLES
 function lamp(x,z){
- const pole=new THREE.Mesh(
-  new THREE.CylinderGeometry(.07,.1,4,8),metal
- );
+ const pole=new THREE.Mesh(new THREE.CylinderGeometry(.07,.1,4,8),metal);
  pole.position.set(x,2,z);
  scene.add(pole);
  const light=new THREE.PointLight(0xffa74c,12,8);
  light.position.set(x,4.1,z);
  scene.add(light);
- const bulb=new THREE.Mesh(
-  new THREE.SphereGeometry(.17,12,12),
-  new THREE.MeshBasicMaterial({color:0xffca76})
- );
+ const bulb=new THREE.Mesh(new THREE.SphereGeometry(.17,12,12),new THREE.MeshBasicMaterial({color:0xffca76}));
  bulb.position.copy(light.position);
  scene.add(bulb);
 }
@@ -376,130 +255,109 @@ for(let i=0;i<15;i++){
 }
 
 // SUN
-const sun=new THREE.Mesh(
- new THREE.SphereGeometry(2,24,24),
- new THREE.MeshBasicMaterial({color:0xffbd75})
-);
+const sun=new THREE.Mesh(new THREE.SphereGeometry(2,24,24),new THREE.MeshBasicMaterial({color:0xffbd75}));
 sun.position.set(-12,9,-35);
 scene.add(sun);
 
-// CHARACTER BUILDER
+// CHARACTER LOADER
 const characters=[];
+const mixers=[];
 let selected=0;
+const loadingBox=document.getElementById('loading');
+const loader=new GLTFLoader();
 
-function capsule(radius,length,material){
- return new THREE.Mesh(
-  new THREE.CapsuleGeometry(radius,length,5,10),
-  material
- );
-}
+const characterFiles=[
+ 'https://models.codelove.in/models/military-male-01.glb',
+ 'https://models.codelove.in/models/military-female-02.glb'
+];
 
-function makeCharacter(female=false){
- const group=new THREE.Group();
+function addCharacter(gltf,index){
+ const model=gltf.scene;
 
- const skin=mat(female?0xc78d6b:0xb98768);
- const shirt=mat(female?0x272b34:0x323943);
- const pants=mat(0x171c24);
- const boots=mat(0x171718);
- const armor=mat(0x4d5155);
+ // Sesuaikan tinggi karakter dan letakkan kaki di permukaan tanah
+ model.updateMatrixWorld(true);
+ const initialBox=new THREE.Box3().setFromObject(model);
+ const initialSize=initialBox.getSize(new THREE.Vector3());
+ const initialCenter=initialBox.getCenter(new THREE.Vector3());
 
- // LEGS
- for(let x of [-.18,.18]){
-  const leg=capsule(.115,.65,pants);
-  leg.position.set(x,.68,0);
-  group.add(leg);
-
-  const boot=new THREE.Mesh(
-   new THREE.BoxGeometry(.24,.16,.38),boots
-  );
-  boot.position.set(x,.19,.08);
-  group.add(boot);
+ if(initialSize.y>0){
+  const targetHeight=2.25;
+  const scale=targetHeight/initialSize.y;
+  model.scale.setScalar(scale);
+  model.position.x=-initialCenter.x*scale;
+  model.position.z=-initialCenter.z*scale;
+  model.position.y=-initialBox.min.y*scale;
  }
 
- // BODY
- const torso=capsule(female?.27:.31,.55,shirt);
- torso.position.y=1.48;
- torso.scale.x=female?.85:1;
- group.add(torso);
+ model.traverse(object=>{
+  if(object.isMesh){
+   object.castShadow=true;
+   object.receiveShadow=true;
+   if(object.material){
+    object.material.side=THREE.FrontSide;
+   }
+  }
+ });
 
- // ARMOR
- const vest=new THREE.Mesh(
-  new THREE.BoxGeometry(.53,.55,.29),armor
- );
- vest.position.set(0,1.48,-.015);
- group.add(vest);
+ // Putar karakter menghadap kamera
+ model.rotation.y=Math.PI;
 
- // HEAD
- const head=new THREE.Mesh(
-  new THREE.SphereGeometry(.22,20,16),skin
- );
- head.position.y=2.13;
- group.add(head);
+ const holder=new THREE.Group();
+ holder.add(model);
+ holder.position.set(0,0,0);
+ holder.visible=false;
+ scene.add(holder);
 
- // HAIR
- const hair=new THREE.Mesh(
-  new THREE.SphereGeometry(.225,16,12),
-  mat(female?0x25201d:0x24201c)
- );
- hair.scale.set(1,0.7,1);
- hair.position.set(0,2.27,0);
- group.add(hair);
+ let mixer=null;
+ if(gltf.animations && gltf.animations.length){
+  mixer=new THREE.AnimationMixer(model);
+  mixers[index]=mixer;
 
- // ARMS
- const armMaterial=shirt;
- const arms=[];
- for(let x of [-1,1]){
-  const arm=capsule(.09,.53,armMaterial);
-  arm.position.set(x*.37,1.43,.02);
-  arm.rotation.z=x*-.4;
-  group.add(arm);
-  arms.push(arm);
+  // Cari animasi idle jika tersedia
+  let idle=gltf.animations.find(a=>a.name.toLowerCase().includes('idle'));
+  if(!idle) idle=gltf.animations[0];
+
+  const action=mixer.clipAction(idle);
+  action.play();
  }
 
- // GUN
- const gunGroup=new THREE.Group();
- const gun=box(0,0,0,.13,.15,1.1,dark);
- gun.position.set(0,0,0);
- gunGroup.add(gun);
-
- const barrel=new THREE.Mesh(
-  new THREE.CylinderGeometry(.035,.035,.65,8),metal
- );
- barrel.rotation.x=Math.PI/2;
- barrel.position.z=-.8;
- gunGroup.add(barrel);
-
- const magazine=new THREE.Mesh(
-  new THREE.BoxGeometry(.1,.35,.16),dark
- );
- magazine.position.set(0,-.22,-.1);
- magazine.rotation.x=-.2;
- gunGroup.add(magazine);
-
- gunGroup.position.set(.22,1.57,.3);
- gunGroup.rotation.x=-.15;
- gunGroup.rotation.y=.2;
- group.add(gunGroup);
-
- group.userData.arms=arms;
- group.userData.gun=gunGroup;
-
- group.position.set(0,0,.1);
- scene.add(group);
- return group;
+ characters[index]=holder;
+ checkCharactersLoaded();
 }
 
-characters.push(makeCharacter(false));
-characters.push(makeCharacter(true));
+function checkCharactersLoaded(){
+ if(characters[0] && characters[1]){
+  loadingBox.style.display='none';
+  updateCharacter();
+  showToast('KARAKTER 3D BERHASIL DIMUAT');
+ }
+}
+
+characterFiles.forEach((url,index)=>{
+ loader.load(
+  url,
+  gltf=>addCharacter(gltf,index),
+  progress=>{
+   if(progress.total){
+    const percent=Math.round(progress.loaded/progress.total*100);
+    loadingBox.textContent='MEMUAT KARAKTER '+(index+1)+'/2... '+percent+'%';
+   }
+  },
+  error=>{
+   console.error('Gagal memuat karakter:',url,error);
+   loadingBox.textContent='GAGAL MEMUAT MODEL. PERIKSA KONEKSI INTERNET.';
+   showToast('Model karakter gagal dimuat. Coba refresh halaman.');
+  }
+ );
+});
 
 function updateCharacter(){
  characters.forEach((c,i)=>{
-  c.visible=i===selected;
+  if(c)c.visible=i===selected;
  });
  document.getElementById('characterName').textContent=
  selected===0?'MALE SOLDIER':'FEMALE SOLDIER';
 }
-updateCharacter();
 
 window.changeCharacter=function(direction){
  selected=(selected+direction+2)%2;
@@ -509,18 +367,19 @@ window.changeCharacter=function(direction){
 
 // ANIMATION
 const clock=new THREE.Clock();
-
 function animate(){
  requestAnimationFrame(animate);
- const t=clock.getElapsedTime();
+ const delta=clock.getDelta();
+ const t=clock.elapsedTime;
 
- characters.forEach((c,i)=>{
-  if(!c.visible)return;
-  c.position.y=Math.sin(t*1.5)*.025;
-  c.rotation.y=Math.sin(t*.5)*.04;
-  c.userData.arms.forEach((arm,j)=>{
-   arm.rotation.x=Math.sin(t*1.5)*.025;
-  });
+ mixers.forEach(mixer=>{
+  if(mixer)mixer.update(delta);
+ });
+
+ characters.forEach((c)=>{
+  if(!c || !c.visible)return;
+  c.position.y=Math.sin(t*1.5)*0.015;
+  c.rotation.y=Math.PI+Math.sin(t*.5)*.025;
  });
 
  renderer.render(scene,camera);
@@ -532,21 +391,22 @@ window.addEventListener('resize',()=>{
  camera.aspect=window.innerWidth/window.innerHeight;
  camera.updateProjectionMatrix();
  renderer.setSize(window.innerWidth,window.innerHeight);
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.35));
 });
 
 // UI FUNCTIONS
-window.showToast=function(text){
+window.showToast=function(message){
  const el=document.getElementById('toast');
- el.textContent=text;
+ el.textContent=message;
  el.style.display='block';
  clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>el.style.display='none',2200);
+ window.toastTimer=setTimeout(()=>el.style.display='none',2500);
 };
 
 window.menuAction=function(name){
  showToast(name+' - MENU DIPILIH');
- document.querySelectorAll('.menu').forEach(b=>{
-  b.classList.toggle('active',b.textContent.includes(name));
+ document.querySelectorAll('.menu').forEach(button=>{
+  button.classList.toggle('active',button.textContent.includes(name));
  });
 };
 
@@ -560,7 +420,6 @@ window.startGame=function(){
 window.closeNotice=function(){
  document.getElementById('notice').style.display='none';
 };
-
 </script>
 </body>
 </html>

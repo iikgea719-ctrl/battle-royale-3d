@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>LAST SURVIVOR - Head Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ overflow:hidden;
+ background:#20252c;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+#game{position:fixed;inset:0}
+canvas{display:block}
+.header{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ padding:15px;
+ background:#10151bcc;
+ z-index:2;
+ text-align:center;
+}
+.header h2{margin:0;font-size:18px}
+.header small{color:#ffc15b}
+.controls{
+ position:fixed;
+ bottom:20px;
+ left:0;
+ width:100%;
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ z-index:2;
+}
+button{
+ border:1px solid #ffffff55;
+ background:#171d25ee;
+ color:white;
+ padding:13px 19px;
+ border-radius:7px;
+ font-weight:bold;
+}
+button:active{background:#bd782d}
+#status{
+ position:fixed;
+ top:90px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#111d;
+ padding:10px 15px;
+ border-radius:6px;
+ font-size:12px;
+ z-index:2;
+}
+</style>
+
+<script type="importmap">
+{
+ "imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+ }
+}
+</script>
+</head>
+
+<body>
+
+<div id="game"></div>
+
+<div class="header">
+ <h2>LAST SURVIVOR</h2>
+ <small>3D CHARACTER HEAD TEST</small>
+</div>
+
+<div id="status">MEMUAT MODEL...</div>
+
+<div class="controls">
+ <button onclick="rotateHead(-0.35)">◀ KIRI</button>
+ <button onclick="resetHead()">RESET</button>
+ <button onclick="rotateHead(0.35)">KANAN ▶</button>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import {createCharacterHead} from './character-head.js';
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x343d49);
+
+const camera=new THREE.PerspectiveCamera(
+ 38,
+ window.innerWidth/window.innerHeight,
+ 0.1,
+ 100
+);
+
+camera.position.set(0,0.65,3.4);
+camera.lookAt(0,0.48,0);
+
+const renderer=new THREE.WebGLRenderer({
+ antialias:true,
+ alpha:false
+});
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.15;
+
+document.getElementById('game').appendChild(renderer.domElement);
+
+// LIGHTING
+scene.add(new THREE.HemisphereLight(
+ 0xffffff,0x49352b,2.2
+));
+
+const keyLight=new THREE.DirectionalLight(0xffe0c2,3);
+keyLight.position.set(-3,5,5);
+scene.add(keyLight);
+
+const fillLight=new THREE.DirectionalLight(0x91bfff,1.4);
+fillLight.position.set(4,2,3);
+scene.add(fillLight);
+
+const rimLight=new THREE.DirectionalLight(0xffa66b,2);
+rimLight.position.set(0,3,-4);
+scene.add(rimLight);
+
+// PLATFORM
+const floor=new THREE.Mesh(
+ new THREE.CircleGeometry(2,64),
+ new THREE.MeshStandardMaterial({
+  color:0x424b56,
+  roughness:0.85
+ })
+);
+
+floor.rotation.x=-Math.PI/2;
+floor.position.y=-0.05;
+scene.add(floor);
+
+// CHARACTER HEAD
+const head=createCharacterHead();
+scene.add(head);
+
+// MOVE HEAD INTO CAMERA VIEW
+head.position.y=-0.05;
+
+document.getElementById('status').textContent=
+ 'MODEL KEPALA BERHASIL DIMUAT';
+
+// ROTATION
+window.rotateHead=function(amount){
+ head.rotation.y+=amount;
+};
+
+window.resetHead=function(){
+ head.rotation.y=0;
+};
+
+// TOUCH ROTATION
+let touching=false;
+let previousX=0;
+
+renderer.domElement.addEventListener('pointerdown',e=>{
+ touching=true;
+ previousX=e.clientX;
+});
+
+window.addEventListener('pointerup',()=>{
+ touching=false;
+});
+
+window.addEventListener('pointermove',e=>{
+ if(!touching)return;
+ const movement=e.clientX-previousX;
+ head.rotation.y+=movement*0.008;
+ previousX=e.clientX;
+});
+
+// ANIMATION
+function animate(){
+ requestAnimationFrame(animate);
+ renderer.render(scene,camera);
+}
+animate();
+
+// RESIZE
+window.addEventListener('resize',()=>{
+ camera.aspect=window.innerWidth/window.innerHeight;
+ camera.updateProjectionMatrix();
+ renderer.setSize(window.innerWidth,window.innerHeight);
+});
+</script>
+
+</body>
+</html>

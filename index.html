@@ -143,6 +143,7 @@ button{cursor:pointer;color:white}
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x9c6554);
@@ -265,6 +266,7 @@ const mixers=[];
 let selected=0;
 const loadingBox=document.getElementById('loading');
 const loader=new GLTFLoader();
+loader.setMeshoptDecoder(MeshoptDecoder);
 
 const characterFiles=[
  'https://models.codelove.in/models/military-male-01.glb',
